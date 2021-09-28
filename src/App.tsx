@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Meme } from './components/Meme';
+import { useTypedSelector } from './hooks/useTypedSelector';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const {joke, error, loading} = useTypedSelector(state => state)
+  
+  if(loading) {
+    return (
+      <Meme data = {'Remember a joke...'} />
+    );
+  }else if(error) {
+    return (
+      <Meme data = {'Can`t remember a joke :('} />
+    );
+  }else{
+    return (
+      <Meme data = {joke} />
+    );
+  }
+  
 }
 
 export default App;
